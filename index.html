@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="LegalEdu - Platform edukasi hukum yang membantu masyarakat memahami hukum dengan bahasa sederhana."
+  >
+
+  <title>LegalEdu — Pahami Hukum, Lindungi Hakmu</title>
+
+  <style>
+    /* =========================
+       RESET & VARIABLES
+    ========================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #0f172a;
+      --primary-light: #1e293b;
+      --blue: #2563eb;
+      --blue-light: #eff6ff;
+      --gold: #d4a72c;
+      --gold-light: #fef9e7;
+      --white: #ffffff;
+      --background: #f8fafc;
+      --text: #334155;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --danger: #dc2626;
+
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin-inline: auto;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================== */
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-container {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--primary);
+      color: var(--gold);
+      font-size: 1.35rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .nav-button {
+      padding: 11px 18px;
+      border-radius: 10px;
+      background: var(--primary);
+      color: var(--white) !important;
+    }
+
+    .nav-button:hover {
+      background: var(--blue);
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 0;
+      background: transparent;
+      font-size: 1.6rem;
+      color: var(--primary);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(
+          circle at 85% 20%,
+          rgba(37, 99, 235, 0.16),
+          transparent 28%
+        ),
+        linear-gradient(
+          135deg,
+          #0f172a,
+          #172554
+        );
+      color: var(--white);
+      padding: 100px 0;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border: 1px solid rgba(212, 167, 44, 0.25);
+      border-radius: 50%;
+      right: -100px;
+      bottom: -150px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.07);
+      color: #dbeafe;
+      font-size: 0.85rem;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      max-width: 650px;
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 11px;
+      padding: 13px 20px;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: #e4b936;
+    }
+
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.07);
+      color: var(--white);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    /* =========================
+       SEARCH
+    ========================== */
+
+    .search-section {
+      margin-top: -30px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .search-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 10px;
+      border-radius: 16px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-box input {
+      flex: 1;
+      border: 0;
+      outline: none;
+      padding: 12px 15px;
+      color: var(--text);
+      background: transparent;
+    }
+
+    .search-box button {
+      border: 0;
+      border-radius: 10px;
+      padding: 0 22px;
+      background: var(--blue);
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    /* =========================
+       SECTION
+    ========================== */
+
+    .section {
+      padding: 90px 0;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 35px;
+    }
+
+    .section-label {
+      color: var(--blue);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      color: var(--primary);
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      line-height: 1.15;
+    }
+
+    .section-description {
+      max-width: 580px;
+      color: var(--muted);
+    }
+
+    /* =========================
+       CATEGORIES
+    ========================== */
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .category-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: 0.25s ease;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: #bfdbfe;
+    }
+
+    .category-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--blue-light);
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+    }
+
+    .category-card h3 {
+      color: var(--primary);
+      margin-bottom: 7px;
+      font-size: 1rem;
+    }
+
+    .category-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* =========================
+       ARTICLES
+    ========================== */
+
+    .articles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .article-card {
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: 0.25s ease;
+    }
+
+    .article-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .article-image {
+      height: 180px;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(
+          135deg,
+          #172554,
+          #2563eb
+        );
+      color: white;
+      font-size: 3rem;
+    }
+
+    .article-body {
+      padding: 22px;
+    }
+
+    .article-category {
+      color: var(--blue);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .article-body h3 {
+      margin: 9px 0;
+      color: var(--primary);
+      font-size: 1.15rem;
+      line-height: 1.35;
+    }
+
+    .article-body p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .read-more {
+      color: var(--blue);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    /* =========================
+       DICTIONARY
+    ========================== */
+
+    .dictionary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .dictionary .section-title {
+      color: var(--white);
+    }
+
+    .dictionary .section-description {
+      color: #94a3b8;
+    }
+
+    .dictionary-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .term-list,
+    .term-detail {
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      padding: 25px;
+    }
+
+    .term-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .term-button {
+      text-align: left;
+      border: 0;
+      border-radius: 10px;
+      padding: 13px 15px;
+      background: transparent;
+      color: #cbd5e1;
+      transition: 0.2s ease;
+    }
+
+    .term-button:hover,
+    .term-button.active {
+      background: rgba(37,99,235,0.25);
+      color: white;
+    }
+
+    .term-detail h3 {
+      color: var(--gold);
+      margin-bottom: 12px;
+      font-size: 1.5rem;
+    }
+
+    .term-detail p {
+      color: #cbd5e1;
+    }
+
+    /* =========================
+       QUIZ
+    ========================== */
+
+    .quiz-container {
+      max-width: 760px;
+      margin: auto;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+    }
+
+    .quiz-progress {
+      height: 7px;
+      background: #e2e8f0;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 25px;
+    }
+
+    .quiz-progress span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: var(--blue);
+      transition: 0.3s ease;
+    }
+
+    .quiz-question {
+      color: var(--primary);
+      font-size: 1.35rem;
+      margin-bottom: 20px;
+    }
+
+    .answers {
+      display: grid;
+      gap: 10px;
+    }
+
+    .answer {
+      text-align: left;
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: var(--white);
+      color: var(--text);
+      transition: 0.2s ease;
+    }
+
+    .answer:hover {
+      border-color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .answer.correct {
+      border-color: var(--success);
+      background: #f0fdf4;
+      color: var(--success);
+    }
+
+    .answer.wrong {
+      border-color: var(--danger);
+      background: #fef2f2;
+      color: var(--danger);
+    }
+
+    .quiz-result {
+      display: none;
+      text-align: center;
+    }
+
+    .quiz-result h3 {
+      color: var(--primary);
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    /* =========================
+       DISCLAIMER
+    ========================== */
+
+    .disclaimer {
+      padding: 30px 0;
+      background: var(--gold-light);
+      border-top: 1px solid #f1df9c;
+      border-bottom: 1px solid #f1df9c;
+    }
+
+    .disclaimer-content {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .disclaimer-icon {
+      font-size: 1.5rem;
+    }
+
+    .disclaimer h3 {
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .disclaimer p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      background: #020617;
+      color: #94a3b8;
+      padding: 50px 0 25px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 50px;
+      padding-bottom: 40px;
+    }
+
+    .footer-brand .logo {
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .footer-brand p {
+      max-width: 400px;
+      font-size: 0.9rem;
+    }
+
+    .footer-column h4 {
+      color: white;
+      margin-bottom: 15px;
+    }
+
+    .footer-column a {
+      display: block;
+      margin-bottom: 9px;
+      font-size: 0.9rem;
+      transition: 0.2s ease;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 22px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    /* =========================
+       SEARCH RESULTS
+    ========================== */
+
+    .search-message {
+      margin-top: 15px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media (max-width: 900px) {
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .articles {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dictionary-box {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .nav-links {
+        position: absolute;
+        top: 72px;
+        left: 0;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px;
+        background: white;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-button {
+        text-align: center;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .hero {
+        padding: 75px 0;
+      }
+
+      .categories,
+      .articles,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 65px 0;
+      }
+
+      .section-header {
+        display: block;
+      }
+
+      .section-description {
+        margin-top: 12px;
+      }
+
+      .search-box {
+        flex-direction: column;
+      }
+
+      .search-box button {
+        padding: 12px;
+      }
+
+      .quiz-container {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVBAR
+  ========================== -->
+
+  <header class="navbar">
+    <div class="container nav-container">
+
+      <a href="#" class="logo">
+        <span class="logo-icon">⚖</span>
+        <span>LegalEdu</span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        id="menuToggle"
+        aria-label="Buka menu"
+      >
+        ☰
+      </button>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#beranda">Beranda</a></li>
+          <li><a href="#kategori">Materi</a></li>
+          <li><a href="#artikel">Artikel</a></li>
+          <li><a href="#kamus">Kamus Hukum</a></li>
+          <li><a href="#quiz">Quiz</a></li>
+          <li>
+            <a href="#quiz" class="nav-button">
+              Mulai Belajar
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <main>
+
+    <section class="hero" id="beranda">
+
+      <div class="container">
+
+        <div class="hero-content">
+
+          <div class="hero-badge">
+            ⚖️ Platform Edukasi Hukum
+          </div>
+
+          <h1>
+            Pahami Hukum.
+            <span>Lindungi Hakmu.</span>
+          </h1>
+
+          <p>
+            Belajar hukum dengan bahasa sederhana, praktis,
+            dan mudah dipahami. Kenali hak dan kewajibanmu
+            melalui materi, artikel, kamus, dan quiz interaktif.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#kategori" class="btn btn-primary">
+              Mulai Belajar →
+            </a>
+
+            <a href="#artikel" class="btn btn-secondary">
+              Baca Artikel
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         SEARCH
+    ========================== -->
+
+    <section class="search-section">
+
+      <div class="container">
+
+        <div class="search-box">
+
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Cari materi, istilah hukum, atau artikel..."
+            aria-label="Cari informasi hukum"
+          >
+
+          <button id="searchButton">
+            Cari
+          </button>
+
+        </div>
+
+        <p
+          class="search-message"
+          id="searchMessage"
+        ></p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         KATEGORI
+    ========================== -->
+
+    <section class="section" id="kategori">
+
+      <div class="container">
+
+        <div class="section-header">
+
+          <div>
+            <div class="section-label">
+              Materi
+            </div>
+
+            <h2 class="section-title">
+              Pelajari Berbagai Bidang Hukum
+            </h2>
+          </div>
+
+          <p class="section-description">
+            Pilih bidang hukum yang ingin kamu pelajari
+            dan mulai pahami konsep dasarnya.
+          </p>
+
+        </div>
+
+
+        <div class="categories">
+
+          <article class="category-card searchable">
+            <div class="category-icon">⚖️</div>
+            <h3>Hukum Pidana</h3>
+            <p>
+              Pelajari tindak pidana, pertanggungjawaban
+              pidana, dan proses hukum pidana.
+            </p>
+          </article>
+
+          <article class="category-card searchable">
+            <div class="category-icon">📄</div>
+            <h3>Hukum Perdata</h3>
+            <p>
+              Mengenal perjanjian, wanprestasi,
+              perbuatan melawan hukum, dan sengketa.
+            </p>
+          </article>
+
+          <article class="category-card searchable">
+            <div class="category-icon">👷</div>
+            <h3>Ketenagakerjaan</h3>
+            <p>
+              Ketahui hak pekerja, kewajiban perusahaan,
+              kontrak kerja, dan PHK.
+            </p>
+          </article>
+
+          <article class="category-card searchable">
+            <div class="category-icon">👨‍👩‍👧</div>
+            <h3>Hukum Keluarga</h3>
+            <p>
+              Pelajari perkawinan, perceraian,
+              hak anak, dan warisan.
+            </p>
+          </article>
+
+          <article class="category-card searchable">
+            <div class="category-icon">🏢</div>
+            <h3>Hukum Bisnis</h3>
+            <p>
+              Dasar hukum usaha, perjanjian bisnis,
+              dan tanggung jawab pelaku usaha.
+            </p>
+          </article>
+
+          <article class="category-card searchable">
+            <div class="category-icon">💻</div>
+            <h3>Hukum Siber</h3>
+            <p>
+              Mengenal aspek hukum teknologi,
+              data pribadi, dan aktivitas digital.
+            </p>
+          </article>
+
+          <article class="category-card searchable">
+            <div class="category-icon">🛒</div>
+            <h3>Perlindungan Konsumen</h3>
+            <p>
+              Ketahui hak konsumen ketika membeli
+              barang atau menggunakan jasa.
+            </p>
+          </article>
+
+          <article class="category-card searchable">
+            <div class="category-icon">🏛️</div>
+            <h3>Hukum Administrasi</h3>
+            <p>
+              Mengenal hubungan masyarakat dengan
+              administrasi dan pemerintahan.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         ARTICLES
+    ========================== -->
+
+    <section class="section" id="artikel">
+
+      <div class="container">
+
+        <div class="section-header">
+
+          <div>
+            <div class="section-label">
+              Artikel
+            </div>
+
+            <h2 class="section-title">
+              Belajar dari Kasus Sehari-hari
+            </h2>
+          </div>
+
+          <p class="section-description">
+            Materi hukum yang dikemas dengan contoh
+            sederhana agar lebih mudah dipahami.
+          </p>
+
+        </div>
+
+
+        <div class="articles">
+
+          <article class="article-card searchable">
+
+            <div class="article-image">
+              📝
+            </div>
+
+            <div class="article-body">
+
+              <span class="article-category">
+                Hukum Perdata
+              </span>
+
+              <h3>
+                Apa Itu Wanprestasi?
+              </h3>
+
+              <p>
+                Mengenal pengertian wanprestasi dan
+                contoh sederhana dalam kehidupan sehari-hari.
+              </p>
+
+              <a href="#" class="read-more">
+                Baca selengkapnya →
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <article class="article-card searchable">
+
+            <div class="article-image">
+              🛡️
+            </div>
+
+            <div class="article-body">
+
+              <span class="article-category">
+                Konsumen
+              </span>
+
+              <h3>
+                Apa yang Harus Dilakukan Saat Ditipu Online?
+              </h3>
+
+              <p>
+                Langkah awal yang dapat dipahami masyarakat
+                ketika menghadapi permasalahan transaksi online.
+              </p>
+
+              <a href="#" class="read-more">
+                Baca selengkapnya →
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <article class="article-card searchable">
+
+            <div class="article-image">
+              👷
+            </div>
+
+            <div class="article-body">
+
+              <span class="article-category">
+                Ketenagakerjaan
+              </span>
+
+              <h3>
+                Mengenal Hak Dasar Pekerja
+              </h3>
+
+              <p>
+                Memahami beberapa konsep dasar mengenai
+                hubungan kerja dan hak pekerja.
+              </p>
+
+              <a href="#" class="read-more">
+                Baca selengkapnya →
+              </a>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         DICTIONARY
+    ========================== -->
+
+    <section class="section dictionary" id="kamus">
+
+      <div class="container">
+
+        <div class="section-header">
+
+          <div>
+            <div class="section-label">
+              Kamus
+            </div>
+
+            <h2 class="section-title">
+              Kamus Istilah Hukum
+            </h2>
+          </div>
+
+          <p class="section-description">
+            Tidak memahami istilah hukum?
+            Pilih istilah di bawah untuk melihat penjelasannya.
+          </p>
+
+        </div>
+
+
+        <div class="dictionary-box">
+
+          <div class="term-list">
+
+            <button
+              class="term-button active"
+              data-term="wanprestasi"
+            >
+              Wanprestasi
+            </button>
+
+            <button
+              class="term-button"
+              data-term="somasi"
+            >
+              Somasi
+            </button>
+
+            <button
+              class="term-button"
+              data-term="perbuatan-melawan-hukum"
+            >
+              Perbuatan Melawan Hukum
+            </button>
+
+            <button
+              class="term-button"
+              data-term="mediasi"
+            >
+              Mediasi
+            </button>
+
+          </div>
+
+
+          <div class="term-detail">
+
+            <h3 id="termTitle">
+              Wanprestasi
+            </h3>
+
+            <p id="termDescription">
+              Keadaan ketika salah satu pihak dalam suatu
+              perjanjian tidak memenuhi kewajiban sebagaimana
+              yang telah disepakati.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         QUIZ
+    ========================== -->
+
+    <section class="section" id="quiz">
+
+      <div class="container">
+
+        <div class="section-header">
+
+          <div>
+            <div class="section-label">
+              Quiz
+            </div>
+
+            <h2 class="section-title">
+              Uji Pemahamanmu
+            </h2>
+          </div>
+
+          <p class="section-description">
+            Jawab beberapa pertanyaan sederhana
+            untuk menguji pemahaman hukum dasar.
+          </p>
+
+        </div>
+
+
+        <div class="quiz-container">
+
+          <div id="quizContent">
+
+            <div class="quiz-progress">
+              <span id="progressBar"></span>
+            </div>
+
+            <h3
+              class="quiz-question"
+              id="question"
+            ></h3>
+
+            <div
+              class="answers"
+              id="answers"
+            ></div>
+
+          </div>
+
+
+          <div
+            class="quiz-result"
+            id="quizResult"
+          >
+
+            <h3>
+              Quiz Selesai 🎉
+            </h3>
+
+            <p id="scoreText"></p>
+
+            <br>
+
+            <button
+              class="btn btn-primary"
+              id="restartQuiz"
+            >
+              Ulangi Quiz
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         DISCLAIMER
+    ========================== -->
+
+    <section class="disclaimer">
+
+      <div class="container">
+
+        <div class="disclaimer-content">
+
+          <div class="disclaimer-icon">
+            ⚠️
+          </div>
+
+          <div>
+
+            <h3>
+              Catatan Penting
+            </h3>
+
+            <p>
+              Informasi pada website ini ditujukan untuk
+              tujuan edukasi dan informasi umum. Konten ini
+              bukan merupakan nasihat hukum dan tidak
+              menggantikan konsultasi dengan advokat atau
+              profesional hukum yang berwenang.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">
+            <span class="logo-icon">⚖</span>
+            <span>LegalEdu</span>
+          </a>
+
+          <p>
+            Platform edukasi hukum yang membantu masyarakat
+            memahami hukum dengan bahasa yang lebih sederhana
+            dan mudah dipahami.
+          </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h4>Eksplorasi</h4>
+
+          <a href="#kategori">
+            Materi Hukum
+          </a>
+
+          <a href="#artikel">
+            Artikel
+          </a>
+
+          <a href="#kamus">
+            Kamus Hukum
+          </a>
+
+          <a href="#quiz">
+            Quiz
+          </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h4>Informasi</h4>
+
+          <a href="#">
+            Tentang Kami
+          </a>
+
+          <a href="#">
+            Kebijakan Privasi
+          </a>
+
+          <a href="#">
+            Disclaimer
+          </a>
+
+          <a href="#">
+            Kontak
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="copyright">
+        © 2026 LegalEdu. Dibuat untuk tujuan edukasi hukum.
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    /* =========================
+       MOBILE MENU
+    ========================== */
+
+    const menuToggle =
+      document.getElementById("menuToggle");
+
+    const navLinks =
+      document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+
+      navLinks.classList.toggle("active");
+
+    });
+
+
+    document.querySelectorAll(".nav-links a")
+      .forEach(link => {
+
+        link.addEventListener("click", () => {
+
+          navLinks.classList.remove("active");
+
+        });
+
+      });
+
+
+    /* =========================
+       DICTIONARY
+    ========================== */
+
+    const dictionary = {
+
+      "wanprestasi": {
+        title: "Wanprestasi",
+        description:
+          "Keadaan ketika salah satu pihak dalam suatu perjanjian tidak memenuhi kewajiban sebagaimana yang telah disepakati."
+      },
+
+      "somasi": {
+        title: "Somasi",
+        description:
+          "Peringatan atau teguran kepada pihak yang dianggap belum memenuhi kewajibannya dalam suatu hubungan hukum."
+      },
+
+      "perbuatan-melawan-hukum": {
+        title: "Perbuatan Melawan Hukum",
+        description:
+          "Suatu perbuatan yang menimbulkan kerugian dan bertentangan dengan ketentuan atau prinsip hukum yang berlaku."
+      },
+
+      "mediasi": {
+        title: "Mediasi",
+        description:
+          "Proses penyelesaian sengketa dengan bantuan pihak ketiga yang netral untuk membantu para pihak mencapai kesepakatan."
+      }
+
+    };
+
+
+    const termButtons =
+      document.querySelectorAll(".term-button");
+
+    const termTitle =
+      document.getElementById("termTitle");
+
+    const termDescription =
+      document.getElementById("termDescription");
+
+
+    termButtons.forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        termButtons.forEach(btn => {
+          btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        const term =
+          dictionary[button.dataset.term];
+
+        termTitle.textContent =
+          term.title;
+
+        termDescription.textContent =
+          term.description;
+
+      });
+
+    });
+
+
+    /* =========================
+       SEARCH
+    ========================== */
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const searchButton =
+      document.getElementById("searchButton");
+
+    const searchMessage =
+      document.getElementById("searchMessage");
+
+    const searchableItems =
+      document.querySelectorAll(".searchable");
+
+
+    function performSearch() {
+
+      const keyword =
+        searchInput.value
+          .trim()
+          .toLowerCase();
+
+      let found = 0;
+
+      searchableItems.forEach(item => {
+
+        const text =
+          item.textContent.toLowerCase();
+
+        if (
+          keyword === "" ||
+          text.includes(keyword)
+        ) {
+
+          item.classList.remove("hidden");
+
+          if (keyword !== "") {
+            found++;
+          }
+
+        } else {
+
+          item.classList.add("hidden");
+
+        }
+
+      });
+
+
+      if (keyword === "") {
+
+        searchMessage.style.display = "none";
+
+      } else {
+
+        searchMessage.style.display = "block";
+
+        searchMessage.textContent =
+          found > 0
+            ? `Ditemukan ${found} hasil untuk "${keyword}".`
+            : `Tidak ditemukan hasil untuk "${keyword}".`;
+
+      }
+
+    }
+
+
+    searchButton.addEventListener(
+      "click",
+      performSearch
+    );
+
+
+    searchInput.addEventListener(
+      "keydown",
+      event => {
+
+        if (event.key === "Enter") {
+          performSearch();
+        }
+
+      }
+    );
+
+
+    /* =========================
+       QUIZ DATA
+    ========================== */
+
+    const quizData = [
+
+      {
+        question:
+          "Apa yang dimaksud dengan wanprestasi?",
+
+        answers: [
+          "Pelanggaran hukum pidana",
+          "Tidak memenuhi kewajiban dalam perjanjian",
+          "Sengketa antarnegara",
+          "Proses pemeriksaan di pengadilan"
+        ],
+
+        correct: 1
+      },
+
+      {
+        question:
+          "Apa tujuan utama mediasi?",
+
+        answers: [
+          "Menghukum salah satu pihak",
+          "Membantu para pihak mencapai kesepakatan",
+          "Menentukan terdakwa",
+          "Menghapus seluruh bukti"
+        ],
+
+        correct: 1
+      },
+
+      {
+        question:
+          "Somasi pada dasarnya berkaitan dengan...",
+
+        answers: [
+          "Peringatan atau teguran",
+          "Penangkapan",
+          "Putusan pidana",
+          "Pembuatan paspor"
+        ],
+
+        correct: 0
+      }
+
+    ];
+
+
+    let currentQuestion = 0;
+    let score = 0;
+
+
+    const questionElement =
+      document.getElementById("question");
+
+    const answersElement =
+      document.getElementById("answers");
+
+    const progressBar =
+      document.getElementById("progressBar");
+
+    const quizContent =
+      document.getElementById("quizContent");
+
+    const quizResult =
+      document.getElementById("quizResult");
+
+    const scoreText =
+      document.getElementById("scoreText");
+
+    const restartQuiz =
+      document.getElementById("restartQuiz");
+
+
+    function loadQuestion() {
+
+      const current =
+        quizData[currentQuestion];
+
+      questionElement.textContent =
+        `${currentQuestion + 1}. ${current.question}`;
+
+      answersElement.innerHTML = "";
+
+      const progress =
+        (currentQuestion / quizData.length) * 100;
+
+      progressBar.style.width =
+        `${progress}%`;
+
+
+      current.answers.forEach(
+        (answer, index) => {
+
+          const button =
+            document.createElement("button");
+
+          button.className = "answer";
+
+          button.textContent =
+            answer;
+
+          button.addEventListener(
+            "click",
+            () => selectAnswer(index, button)
+          );
+
+          answersElement.appendChild(button);
+
+        }
+      );
+
+    }
+
+
+    function selectAnswer(
+      selectedIndex,
+      selectedButton
+    ) {
+
+      const current =
+        quizData[currentQuestion];
+
+      const buttons =
+        document.querySelectorAll(".answer");
+
+
+      buttons.forEach(button => {
+        button.disabled = true;
+      });
+
+
+      if (
+        selectedIndex === current.correct
+      ) {
+
+        selectedButton.classList.add(
+          "correct"
+        );
+
+        score++;
+
+      } else {
+
+        selectedButton.classList.add(
+          "wrong"
+        );
+
+        buttons[
+          current.correct
+        ].classList.add("correct");
+
+      }
+
+
+      setTimeout(() => {
+
+        currentQuestion++;
+
+        if (
+          currentQuestion < quizData.length
+        ) {
+
+          loadQuestion();
+
+        } else {
+
+          showResult();
+
+        }
+
+      }, 900);
+
+    }
+
+
+    function showResult() {
+
+      quizContent.style.display = "none";
+
+      quizResult.style.display = "block";
+
+      progressBar.style.width = "100%";
+
+      scoreText.textContent =
+        `Kamu mendapatkan ${score} dari ${quizData.length} jawaban benar.`;
+
+    }
+
+
+    restartQuiz.addEventListener(
+      "click",
+      () => {
+
+        currentQuestion = 0;
+
+        score = 0;
+
+        quizContent.style.display = "block";
+
+        quizResult.style.display = "none";
+
+        loadQuestion();
+
+      }
+    );
+
+
+    /* =========================
+       START QUIZ
+    ========================== */
+
+    loadQuestion();
+
+  </script>
+
+</body>
+</html>
